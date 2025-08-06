@@ -463,7 +463,7 @@ if __name__ == "__main__":
     parser.add_argument("--negative_prompt", type=str,  default='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality', help="")
     #parser.add_argument("--negative_prompt", type=str,  default=None, help="")
     args = parser.parse_args()
-
+    meta_list = [
     dict(
         ckpt="/content/drive/MyDrive/VOC2012/checkpoint_generation_text.pth",
         prompt="An image of 3 aeroplanes.",
@@ -473,9 +473,11 @@ if __name__ == "__main__":
         alpha_type=[0.3, 0.0, 0.7],
         save_folder_name="/content/drive/MyDrive/VOC2012/generation_box_text"
     )
+         ]
 
     starting_noise = None
-    run(dict, args, starting_noise)
+    for meta in meta_list:
+        run(meta, args, starting_noise)
 
 '''
     meta_list = [ 
