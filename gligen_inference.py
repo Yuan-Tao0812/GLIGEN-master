@@ -457,7 +457,7 @@ if __name__ == "__main__":
     parser.add_argument("--folder", type=str,  default="generation_samples", help="root folder for output")
 
 
-    parser.add_argument("--batch_size", type=int, default=5, help="")
+    parser.add_argument("--batch_size", type=int, default=1, help="")
     parser.add_argument("--no_plms", action='store_true', help="use DDIM instead. WARNING: I did not test the code yet")
     parser.add_argument("--guidance_scale", type=float,  default=7.5, help="")
     parser.add_argument("--negative_prompt", type=str,  default='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality', help="")
@@ -466,11 +466,10 @@ if __name__ == "__main__":
     meta_list = [
     dict(
         ckpt="/content/drive/MyDrive/VOC2012/checkpoint_generation_text.pth",
-        prompt="An image of 3 aeroplanes.",
-        phrases=['an aeroplane', 'an aeroplane', 'an aeroplane'],
-        locations=[[0.506000, 0.502732, 0.980000, 0.426230], [0.901000, 0.579235, 0.122000, 0.071038],
-                   [0.734000, 0.558743, 0.172000, 0.095628]],
-        alpha_type=[0.3, 0.0, 0.7],
+        prompt="An image of 2 aeroplanes.",
+        phrases=['an aeroplane', 'an aeroplane'],
+        locations=[[0.0, 0.25, 0.25, 0.5], [0.5, 0.75, 0.75, 1.0]],
+        alpha_type=[0.1, 0.0, 0.9],
         save_folder_name="/content/drive/MyDrive/VOC2012/generation_box_text"
     )
          ]
