@@ -69,14 +69,9 @@ def alpha_generator(length, type=None):
 
 
 def load_ckpt(ckpt_path):
-    print(f"load_ckpt input type: {type(ckpt_path)}, value: {ckpt_path}")
     torch.serialization.add_safe_globals([omegaconf.base.ContainerMetadata])
     saved_ckpt = torch.load(ckpt_path, weights_only=False)
     # saved_ckpt = torch.load(ckpt_path)
-    print(f"Checkpoint type: {type(saved_ckpt)}")
-    print(f"Checkpoint keys: {list(saved_ckpt.keys())}")
-    print("Type of config_dict:", type(saved_ckpt["config_dict"]))
-    print("config_dict content keys:", saved_ckpt["config_dict"].keys())
     config = saved_ckpt["config_dict"]["_content"]
 
     model = instantiate_from_config(config['model']).to(device).eval()
@@ -350,12 +345,8 @@ def prepare_batch_sem(meta, batch=1):
 
 @torch.no_grad()
 def run(meta, config, starting_noise=None):
-    print(f"meta type: {type(meta)}")
-    print(f"meta content: {meta}")
-    print(f"config type before update: {type(config)}")
     # - - - - - prepare models - - - - - # 
     model, autoencoder, text_encoder, diffusion, config = load_ckpt(meta["ckpt"])
-    print(f"config type after load_ckpt: {type(config)}")
     grounding_tokenizer_input = instantiate_from_config(config['grounding_tokenizer_input'])
     model.grounding_tokenizer_input = grounding_tokenizer_input
     
@@ -472,9 +463,21 @@ if __name__ == "__main__":
     parser.add_argument("--negative_prompt", type=str,  default='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality', help="")
     #parser.add_argument("--negative_prompt", type=str,  default=None, help="")
     args = parser.parse_args()
-    
 
+    dict(
+        ckpt="/content/drive/MyDrive/VOC2012/checkpoint_generation_text.pth",
+        prompt="An image of 3 aeroplanes.",
+        phrases=['an aeroplane', 'an aeroplane', 'an aeroplane'],
+        locations=[[0.506000, 0.502732, 0.980000, 0.426230], [0.901000, 0.579235, 0.122000, 0.071038],
+                   [0.734000, 0.558743, 0.172000, 0.095628]],
+        alpha_type=[0.3, 0.0, 0.7],
+        save_folder_name="/content/drive/MyDrive/VOC2012/generation_box_text"
+    )
 
+    starting_noise = None
+    run(dict, args, starting_noise)
+
+'''
     meta_list = [ 
 
         # - - - - - - - - GLIGEN on text grounding for generation - - - - - - - - # 
@@ -485,9 +488,9 @@ if __name__ == "__main__":
             locations = [ [0.506000, 0.502732, 0.980000, 0.426230], [0.901000, 0.579235, 0.122000, 0.071038], [0.734000, 0.558743, 0.172000, 0.095628] ],
             alpha_type = [0.3, 0.0, 0.7],
             save_folder_name="/content/drive/MyDrive/VOC2012/generation_box_text"
-        ), 
+        )
 
-'''
+
         # - - - - - - - - GLIGEN on text grounding for inpainting - - - - - - - - # 
         dict(
             ckpt = "../gligen_checkpoints/checkpoint_inpainting_text.pth",
@@ -642,7 +645,7 @@ if __name__ == "__main__":
             alpha_type = [0.3, 0.0, 0.7],
             save_folder_name="keypoint"
         ),
-'''
+
 
 
     ]
@@ -653,7 +656,7 @@ if __name__ == "__main__":
     for meta in meta_list:
         run(meta, args, starting_noise)
 
-    
+    '''
 
 
 
