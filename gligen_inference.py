@@ -466,10 +466,10 @@ if __name__ == "__main__":
     meta_list = [
     dict(
         ckpt="/content/drive/MyDrive/VOC2012/checkpoint_generation_text.pth",
-        prompt="An image of 2 aeroplanes.",
-        phrases=['an aeroplane', 'an aeroplane'],
-        locations=[[0.0, 0.25, 0.25, 0.5], [0.5, 0.75, 0.75, 1.0]],
-        alpha_type=[0.1, 0.0, 0.9],
+        prompt="a teddy bear sitting next to a bird",
+        phrases=['a teddy bear', 'a bird'],
+        locations=[[0.0,0.09,0.33,0.76], [0.55,0.11,1.0,0.8]],
+        alpha_type=[0.3, 0.0, 0.7],
         save_folder_name="/content/drive/MyDrive/VOC2012/generation_box_text"
     )
          ]
