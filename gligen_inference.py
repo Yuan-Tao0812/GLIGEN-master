@@ -11,7 +11,7 @@ from ldm.util import instantiate_from_config
 from trainer import read_official_ckpt, batch_to_device
 from inpaint_mask_func import draw_masks_from_boxes
 import numpy as np
-import clip 
+# import clip
 from scipy.io import loadmat
 from functools import partial
 import torchvision.transforms.functional as F
