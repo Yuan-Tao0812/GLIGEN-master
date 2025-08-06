@@ -82,7 +82,9 @@ def load_ckpt(ckpt_path):
     # donot need to load official_ckpt for self.model here, since we will load from our ckpt
     model.load_state_dict( saved_ckpt['model'] )
     autoencoder.load_state_dict( saved_ckpt["autoencoder"]  )
-    text_encoder.load_state_dict( saved_ckpt["text_encoder"]  )
+    # text_encoder.load_state_dict( saved_ckpt["text_encoder"]  )
+    filtered_text_encoder_state_dict = {k: v for k, v in saved_ckpt["text_encoder"].items() if "position_ids" not in k}
+    text_encoder.load_state_dict(filtered_text_encoder_state_dict)
     diffusion.load_state_dict( saved_ckpt["diffusion"]  )
 
     return model, autoencoder, text_encoder, diffusion, config
