@@ -12,6 +12,7 @@ from trainer import read_official_ckpt, batch_to_device
 from inpaint_mask_func import draw_masks_from_boxes
 import numpy as np
 # import clip
+import omegaconf
 from scipy.io import loadmat
 from functools import partial
 import torchvision.transforms.functional as F
@@ -68,8 +69,9 @@ def alpha_generator(length, type=None):
 
 
 def load_ckpt(ckpt_path):
-    
-    saved_ckpt = torch.load(ckpt_path)
+    torch.serialization.add_safe_globals([omegaconf.base.ContainerMetadata])
+    saved_ckpt = torch.load(ckpt_path, weights_only=False)
+    # saved_ckpt = torch.load(ckpt_path)
     config = saved_ckpt["config_dict"]["_content"]
 
     model = instantiate_from_config(config['model']).to(device).eval()
