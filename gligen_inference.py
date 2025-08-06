@@ -69,11 +69,14 @@ def alpha_generator(length, type=None):
 
 
 def load_ckpt(ckpt_path):
+    print(f"Checkpoint type: {type(ckpt_path)}")
     torch.serialization.add_safe_globals([omegaconf.base.ContainerMetadata])
     saved_ckpt = torch.load(ckpt_path, weights_only=False)
     # saved_ckpt = torch.load(ckpt_path)
     print(f"Checkpoint type: {type(saved_ckpt)}")
     print(f"Checkpoint keys: {list(saved_ckpt.keys())}")
+    print("Type of config_dict:", type(saved_ckpt["config_dict"]))
+    print("config_dict content keys:", saved_ckpt["config_dict"].keys())
     config = saved_ckpt["config_dict"]["_content"]
 
     model = instantiate_from_config(config['model']).to(device).eval()
