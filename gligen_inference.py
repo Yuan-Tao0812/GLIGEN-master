@@ -350,10 +350,12 @@ def prepare_batch_sem(meta, batch=1):
 
 @torch.no_grad()
 def run(meta, config, starting_noise=None):
-
+    print(f"meta type: {type(meta)}")
+    print(f"meta content: {meta}")
+    print(f"config type before update: {type(config)}")
     # - - - - - prepare models - - - - - # 
     model, autoencoder, text_encoder, diffusion, config = load_ckpt(meta["ckpt"])
-
+    print(f"config type after load_ckpt: {type(config)}")
     grounding_tokenizer_input = instantiate_from_config(config['grounding_tokenizer_input'])
     model.grounding_tokenizer_input = grounding_tokenizer_input
     
