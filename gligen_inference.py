@@ -69,7 +69,6 @@ def alpha_generator(length, type=None):
 
 
 def load_ckpt(ckpt_path):
-    print(f"Checkpoint type: {type(ckpt_path)}")
     torch.serialization.add_safe_globals([omegaconf.base.ContainerMetadata])
     saved_ckpt = torch.load(ckpt_path, weights_only=False)
     # saved_ckpt = torch.load(ckpt_path)
@@ -649,6 +648,8 @@ if __name__ == "__main__":
     starting_noise = torch.randn(args.batch_size, 4, 64, 64).to(device)
     starting_noise = None
     for meta in meta_list:
+        print(type(meta))
+        print(meta)
         run(meta, args, starting_noise)
 
     
