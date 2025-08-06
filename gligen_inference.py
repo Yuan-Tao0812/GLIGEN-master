@@ -72,6 +72,8 @@ def load_ckpt(ckpt_path):
     torch.serialization.add_safe_globals([omegaconf.base.ContainerMetadata])
     saved_ckpt = torch.load(ckpt_path, weights_only=False)
     # saved_ckpt = torch.load(ckpt_path)
+    print(f"Checkpoint type: {type(saved_ckpt)}")
+    print(f"Checkpoint keys: {list(saved_ckpt.keys())}")
     config = saved_ckpt["config_dict"]["_content"]
 
     model = instantiate_from_config(config['model']).to(device).eval()
