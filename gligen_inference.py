@@ -468,9 +468,9 @@ if __name__ == "__main__":
     meta_list = [
     dict(
         ckpt="/content/drive/MyDrive/VOC2012/checkpoint_generation_text.pth",
-        prompt="a aeroplane and a aeroplane",
-        phrases=["aeroplane", "aeroplane"],
-        locations=[[0.0,0.09,0.33,0.76], [0.55,0.11,1.0,0.8]],
+        prompt="a aeroplane, a aeroplane and a aeroplane",
+        phrases=["aeroplane", "aeroplane", "aeroplane"],
+        locations=[[0.02, 0.29, 1.0, 0.72], [0.84, 0.55, 0.96, 0.62], [0.65, 0.52, 0.82, 0.61]],
         alpha_type=[0.3, 0.0, 0.7],
         save_folder_name="/content/drive/MyDrive/VOC2012/generation_box_text"
     )
