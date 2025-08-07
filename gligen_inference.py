@@ -3,7 +3,8 @@ from PIL import Image, ImageDraw
 from omegaconf import OmegaConf
 from ldm.models.diffusion.ddim import DDIMSampler
 from ldm.models.diffusion.plms import PLMSSampler
-import os 
+import os
+import json
 from transformers import CLIPProcessor, CLIPModel
 from copy import deepcopy
 import torch 
@@ -463,6 +464,7 @@ if __name__ == "__main__":
     parser.add_argument("--negative_prompt", type=str,  default='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality', help="")
     #parser.add_argument("--negative_prompt", type=str,  default=None, help="")
     args = parser.parse_args()
+    '''
     meta_list = [
     dict(
         ckpt="/content/drive/MyDrive/VOC2012/checkpoint_generation_text.pth",
@@ -473,6 +475,14 @@ if __name__ == "__main__":
         save_folder_name="/content/drive/MyDrive/VOC2012/generation_box_text"
     )
          ]
+    '''
+    jsonl_path = '/content/drive/MyDrive/VOC2012/VOC2012-Segmentation-val/annotations.jsonl'
+    meta_list = []
+    with open(jsonl_path, 'r') as f:
+        for line in f:
+            if line.strip():
+                meta = json.loads(line)
+                meta_list.append(meta)
 
     starting_noise = None
     for meta in meta_list:
