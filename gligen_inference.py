@@ -458,7 +458,7 @@ if __name__ == "__main__":
     parser.add_argument("--folder", type=str,  default="generation_samples", help="root folder for output")
 
 
-    parser.add_argument("--batch_size", type=int, default=1, help="")
+    parser.add_argument("--batch_size", type=int, default=3, help="")
     parser.add_argument("--no_plms", action='store_true', help="use DDIM instead. WARNING: I did not test the code yet")
     parser.add_argument("--guidance_scale", type=float,  default=7.5, help="")
     parser.add_argument("--negative_prompt", type=str,  default='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality', help="")
