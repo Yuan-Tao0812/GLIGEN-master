@@ -465,7 +465,7 @@ if __name__ == "__main__":
     #parser.add_argument("--negative_prompt", type=str,  default=None, help="")
     args = parser.parse_args()
 
-    jsonl_path = '/content/drive/MyDrive/VOC2012/VOC2012-Segmentation-val/annotations.jsonl'
+    jsonl_path = '/content/drive/MyDrive/VOC2012/VOC2012-Segmentation-val/annotations1.jsonl'
     meta_list = []
     with open(jsonl_path, 'r') as f:
         for line in f:
