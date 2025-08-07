@@ -12,7 +12,7 @@ from ldm.util import instantiate_from_config
 from trainer import read_official_ckpt, batch_to_device
 from inpaint_mask_func import draw_masks_from_boxes
 import numpy as np
-# import clip
+from tqdm import tqdm
 import omegaconf
 from scipy.io import loadmat
 from functools import partial
@@ -440,7 +440,7 @@ def run(meta, config, starting_noise=None):
 
     start = len( os.listdir(output_folder) )
     image_ids = list(range(start,start+config.batch_size))
-    print(image_ids)
+    # print(image_ids)
     for image_id, sample in zip(image_ids, samples_fake):
         img_name = str(int(image_id))+'.png'
         sample = torch.clamp(sample, min=-1, max=1) * 0.5 + 0.5
@@ -464,7 +464,7 @@ if __name__ == "__main__":
     parser.add_argument("--negative_prompt", type=str,  default='longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality', help="")
     #parser.add_argument("--negative_prompt", type=str,  default=None, help="")
     args = parser.parse_args()
-
+    '''
     meta_list = [
     dict(
         ckpt="/content/drive/MyDrive/VOC2012/checkpoint_generation_text.pth",
@@ -483,9 +483,9 @@ if __name__ == "__main__":
             if line.strip():
                 meta = json.loads(line)
                 meta_list.append(meta)
-    '''
+
     starting_noise = None
-    for meta in meta_list:
+    for meta in tqdm(meta_list, desc="Generating images", unit="image"):
         run(meta, args, starting_noise)
 
 '''
